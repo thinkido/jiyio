@@ -14,7 +14,7 @@
 	<!-- jquery.js 引入网络cdn地址 -->
 	<!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
-  <script type="module" crossorigin src="//app.jiyio.cn/static/js/index-74fe6817.js"></script>
+  <script type="module" crossorigin src="//app.jiyio.cn/static/js/index-55b88f1d.js"></script>
   <link rel="modulepreload" crossorigin href="//app.jiyio.cn/static/js/@vue.shared-e7856075.js">
   <link rel="modulepreload" crossorigin href="//app.jiyio.cn/static/js/@vue.reactivity-245ceee2.js">
   <link rel="modulepreload" crossorigin href="//app.jiyio.cn/static/js/@vue.runtime-core-1d372b41.js">
@@ -63,7 +63,7 @@
   <link rel="modulepreload" crossorigin href="//app.jiyio.cn/static/js/vue-masonry-c98ce0e2.js">
   <link rel="stylesheet" href="//app.jiyio.cn/static/css/element-plus-454dc307.css">
   <link rel="stylesheet" href="//app.jiyio.cn/static/css/nprogress-f5128a35.css">
-  <link rel="stylesheet" href="//app.jiyio.cn/static/css/index-23db7432.css">
+  <link rel="stylesheet" href="//app.jiyio.cn/static/css/index-794ba74a.css">
   <link rel="stylesheet" href="//app.jiyio.cn/static/css/@quasar-c6afb464.css">
 </head>
 
@@ -95,8 +95,17 @@
 		function setKw() {
 			try {
 				let keyword = getQueryVariable("kw");
-				if (keyword) $(".content").mark(decodeURI(keyword));
-				setTimeout(() => { $('.active').length && $('.active')[0].scrollIntoView({ behavior: "smooth" }) }, 500)
+				if (keyword) {
+					var elements = document.querySelectorAll(".content");
+					var decodedKeyword = decodeURI(keyword);
+
+					elements.forEach(function (element) {
+						element.innerHTML = element.innerHTML.replace(new RegExp(decodedKeyword, 'g'), '<mark>' + decodedKeyword + '</mark>');
+					});
+				}
+				setTimeout(function () {
+					$('.active').length && $('.active')[0].scrollIntoView({ behavior: "smooth" })
+				}, 500)
 			} catch (e) { }
 		}
 	</script>
